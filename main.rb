@@ -9,14 +9,14 @@ require_relative 'classes/conversation'
 require_relative 'models/user'
 require_relative 'models/theme'
 require_relative 'models/assessment'
-START = '/start'.freeze
-STOP = '/start'.freeze
-RATING = '/start'.freeze
-HELP = '/start'.freeze
-RULES = '/start'.freeze
-LAST = '/start'.freeze
+# START = '/start'.freeze
+# STOP = '/start'.freeze
+# RATING = '/start'.freeze
+# HELP = '/start'.freeze
+# RULES = '/start'.freeze
+# LAST = '/start'.freeze
 
-# Scheduler.call
+Scheduler.call
 
 Telegram::Bot::Client.run(ENV['TELEGRAM_TOKEN']) do |bot|
   bot.listen do |message|

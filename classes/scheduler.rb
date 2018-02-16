@@ -2,8 +2,8 @@ class Scheduler
   def self.call
     scheduler = Rufus::Scheduler.new
 
-    scheduler.every '1m' do
-      # cron '00 09 * * *' do
+    scheduler.cron '00 09 * * *' do
+      # every '1m' do ---- write it for testing
       Task.new.send
     end
   end
