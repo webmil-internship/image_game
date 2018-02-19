@@ -4,7 +4,7 @@ class Scheduler
 
     scheduler.cron '00 09 * * *' do
       # every '1m' do ---- write it for testing
-      Task.new.send
+      Task.new.perform
     end
   end
 end

@@ -85,20 +85,19 @@ class Conversation
   private
 
   def create_user
-    new_user = User.new(telegram_user_id: @user.id, first_name: @user.first_name,
+    User.create(telegram_user_id: @user.id, first_name: @user.first_name,
                 last_name: @user.last_name, username: @user.username,
                 language_code: @user.language_code,
                 is_active: true)
-    new_user.save
   end
 
   def start_game
     user = User.first(telegram_user_id: @user.id.to_s, is_active: false)
     if user
       user.update(is_active: true)
-      return true
+      true
     else
-      return create_user
+      create_user
     end
   end
 

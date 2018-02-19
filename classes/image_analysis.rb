@@ -16,6 +16,7 @@ class ImageAnalysis
   end
 
   def perform
+    return DIACTIVATE_USER if @user
     theme = Theme.last
     return NOT_YET unless theme
     today = Date.today

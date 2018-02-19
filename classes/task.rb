@@ -5,7 +5,7 @@ class Task
   TASK = 'Your task today is '.freeze
   OOPS = 'The game has not started yet'.freeze
 
-  def send
+  def perform
     task = create_theme
     Telegram::Bot::Client.run(ENV['TELEGRAM_TOKEN']) do |bot|
       User.where(is_active: true).each do |user|
