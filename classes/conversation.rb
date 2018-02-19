@@ -15,6 +15,8 @@ class Conversation
   HELP = ['/start - start the game', '/stop - deactivate accepting messages',
           '/rules - display the rules of the game', '/help - display help',
           '/rating - display rating'].freeze
+  MESSAGE_FOR_UNDEFINED_COMMAND = "We don't understand your command, " +
+                                  'enter /help to view available commands'.freeze
 
   def initialize(message, bot)
     @bot = bot
@@ -74,6 +76,10 @@ class Conversation
 
   def send_last_task
     @bot.api.send_message(chat_id: @user.id, text: Task.get_last)
+  end
+
+  def undefined_command
+    @bot.api.send_message(chat_id: @user.id, text: MESSAGE_FOR_UNDEFINED_COMMAND)
   end
 
   private

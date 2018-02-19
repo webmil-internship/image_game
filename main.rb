@@ -9,12 +9,12 @@ require_relative 'classes/conversation'
 require_relative 'models/user'
 require_relative 'models/theme'
 require_relative 'models/assessment'
-# START = '/start'.freeze
-# STOP = '/start'.freeze
-# RATING = '/start'.freeze
-# HELP = '/start'.freeze
-# RULES = '/start'.freeze
-# LAST = '/start'.freeze
+START_COMMAND = '/start'.freeze
+STOP_COMMAND = '/stop'.freeze
+RATING_COMMAND = '/rating'.freeze
+HELP_COMMAND = '/help'.freeze
+RULES_COMMAND = '/rules'.freeze
+LAST_TASK_COMMAND = '/last'.freeze
 
 Scheduler.call
 
@@ -25,18 +25,20 @@ Telegram::Bot::Client.run(ENV['TELEGRAM_TOKEN']) do |bot|
       conversation.send_opinion_to_user
     end
     case message.text
-    when '/start'
+    when START_COMMAND
       conversation.to_new_user
-    when '/stop'
+    when STOP_COMMAND
       conversation.say_bye_to_user
-    when '/rating'
+    when RATING_COMMAND
       conversation.send_rating
-    when '/help'
+    when HELP_COMMAND
       conversation.send_help
-    when '/rules'
+    when RULES_COMMAND
       conversation.send_rules
-    when '/last'
+    when LAST_TASK_COMMAND
       conversation.send_last_task
+    else
+      conversation.undefined_command
     end
   end
 end
