@@ -21,9 +21,6 @@ Scheduler.call
 Telegram::Bot::Client.run(ENV['TELEGRAM_TOKEN']) do |bot|
   bot.listen do |message|
     conversation = Conversation.new(message, bot)
-    if message.photo.any?
-      conversation.send_opinion_to_user
-    end
     case message.text
     when START_COMMAND
       conversation.to_new_user
@@ -38,7 +35,11 @@ Telegram::Bot::Client.run(ENV['TELEGRAM_TOKEN']) do |bot|
     when LAST_TASK_COMMAND
       conversation.send_last_task
     else
-      conversation.undefined_command
+      if message.photo.any?
+        conversation.send_opinion_to_user
+      else
+        conversation.undefined_command
+      end
     end
   end
 end

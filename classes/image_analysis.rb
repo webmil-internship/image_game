@@ -9,6 +9,7 @@ class ImageAnalysis
   NOT_YET = 'The task has not yet been issued'.freeze
   AZURE_URL = 'https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/analyze'.freeze
   TELEGRAM_FILE_URL = 'https://api.telegram.org/file/bot' + ENV['TELEGRAM_TOKEN'] + '/'.freeze
+  DIACTIVATE_USER = 'You already stoped the game, enter /start'.freeze
 
   def initialize(image_path, user_id)
     @image_path = image_path
@@ -16,7 +17,7 @@ class ImageAnalysis
   end
 
   def perform
-    return DIACTIVATE_USER if @user
+    return DIACTIVATE_USER unless @user.is_active
     theme = Theme.last
     return NOT_YET unless theme
     today = Date.today
@@ -39,7 +40,6 @@ class ImageAnalysis
     request['Content-Type'] = 'application/json'
     request['Ocp-Apim-Subscription-Key'] = ENV['AZURE_API_KEY']
     file_path = TELEGRAM_FILE_URL + @image_path
-    p file_path
     request.body = "{\"url\":\"#{file_path}\"}"
 
     response = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|

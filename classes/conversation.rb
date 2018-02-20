@@ -14,7 +14,7 @@ class Conversation
   CONTINUE = 'To continue the game enter /start'.freeze
   HELP = ['/start - start the game', '/stop - deactivate accepting messages',
           '/rules - display the rules of the game', '/help - display help',
-          '/rating - display rating'].freeze
+          '/rating - display rating', '/last - display the last task'].freeze
   MESSAGE_FOR_UNDEFINED_COMMAND = "We don't understand your command, " +
                                   'enter /help to view available commands'.freeze
 
